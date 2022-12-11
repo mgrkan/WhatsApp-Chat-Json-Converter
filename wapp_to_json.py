@@ -27,7 +27,16 @@ def wapp_to_json(chat_location):
         msg_dict = { "Sender": b, "Day": msg_arr[1], "Month": msg_arr[0], 
         "Year": msg_arr[2], "Hour": msg_arr[3], "Message": msg  }
         
-        chat_json.append(msg_dict)
+        flag = 1
+        for i in ["changed this group", "left", "added",
+        "joined using this group's invite link", "removed", "can message this group",
+        "ERROR", "changed the subject", "changed the group"]:
+            if i in msg_dict["Sender"]:
+                flag = 0
+        if flag == 1:
+            chat_json.append(msg_dict)
+        else:
+            continue
 
     chat_json = json.dumps(chat_json, ensure_ascii=False)
     return chat_json
