@@ -33,7 +33,10 @@ def wapp_to_json(chat_location):
         "ERROR", "changed the subject", "changed the group", "Messages and calls are end-to-end encrypted",
         "created group", "You're now", "started a call"]:
             if i in msg_dict["Sender"]:
-                flag = 0
+                flag = 0ö
+        for i in ["<Media omitted>", "Waiting for this message", "You deleted this message"]:
+                    if i in msg_dict["Message"]:
+                        flag = 0
         if flag == 1:
             chat_json.append(msg_dict)
         else:
