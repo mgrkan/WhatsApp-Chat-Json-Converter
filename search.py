@@ -24,3 +24,22 @@ def most_used_word(messages):
     sorted_word_list = sorted(word_list.items(), key=lambda x:x[1])
     muw = sorted_word_list[-1]
     return [sorted_word_list, muw]
+
+def search_word(word, messages, pretty_print):
+    msg_including_word = []
+    for i in messages:
+        if word in i["Message"]:
+            date = "{}/{}/{}".format(i["Day"], i["Month"], i["Year"])
+            del i["Day"]
+            del i["Month"]
+            del i["Year"]
+            del i["Hour"]
+            highlighted = i["Message"].replace(word, '|{}|'.format(word))
+            i.update({"Message": highlighted})
+            i.update({"Date": date})
+            msg_including_word.append(i)
+    if pretty_print:
+        for i in msg_including_word:
+            print(i, "\n")
+    return msg_including_word
+    
